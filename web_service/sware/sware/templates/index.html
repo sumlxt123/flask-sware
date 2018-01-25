@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Welcome ,
+        <!--在模板中使用if语句，如果用户登录着显示用户名称，否则显示这是主页-->
+        {% if current_user.is_authenticated %}
+            {{ current_user.username }} ^ v ^
+        {% else %}
+            main Index !!!
+        {% endif %}
+        </h1>
+    </div>
+</div>
+{% endblock %}

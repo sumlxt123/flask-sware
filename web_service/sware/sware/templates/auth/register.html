@@ -1,0 +1,69 @@
+<!--引入自定义的基础模板-->
+{% extends "base.html" %}
+
+<!--引入表单模板-->
+<!--{% import "bootstrap/wtf.html" as wtf %}-->
+
+<!--引入自定义css-->
+{% block styles%}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet">
+{% endblock %}
+
+<body>
+    <!--主体内容-->
+    {% block content %}
+    <div class="container">
+        <!--&lt;!&ndash;登录表单&ndash;&gt;-->
+        <!--<form action="" method="post" class="form-signin">-->
+            <!--<h2 class="form-signin-heading">&#45;&#45;&#45;&#45;&#45;&#45;Register&#45;&#45;&#45;&#45;&#45;&#45;</h2>-->
+            <!--&lt;!&ndash;{{ form.csrf_token }}&ndash;&gt;-->
+            <!--&lt;!&ndash;{{ form.username.label }}&ndash;&gt;-->
+            <!--&lt;!&ndash;{{ form.username ()}}&ndash;&gt;-->
+
+            <!--&lt;!&ndash;{{ form.password.label }}&ndash;&gt;-->
+            <!--&lt;!&ndash;{{ form.password() }}&ndash;&gt;-->
+            <!--&lt;!&ndash;{{ form.submit() }}&ndash;&gt;-->
+
+
+        <!--</form>-->
+
+        <!--加入 Flash 消息 -->
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        <!--标题1-->
+        <h1>Register</h1>
+
+        <!--引用表单-->
+        <div>
+            <form action="/register" method="post">
+                {{ wtf.quick_form(form) }}
+            </form>
+        </div>
+
+
+    </div>
+    {% endblock %}
+
+</body>
+
+
+    <!--<div class='container'>-->
+        <!--<form method="post">-->
+            <!--{% for msg in get_flashed_messages() %}-->
+                <!--{{ msg }}-->
+            <!--{% endfor %}-->
+            <!--{{ form.csrf_token }}-->
+            <!--{{ form.username.label }}-->
+            <!--{{ form.username ()}}-->
+
+            <!--{{ form.password.label }}-->
+            <!--{{ form.password() }}-->
+            <!--{{ form.submit() }}-->
+        <!--</form>-->
+    <!--</div>-->

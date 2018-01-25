@@ -1,0 +1,11 @@
+PyMySQL
+flask
+flask-bootstrap
+flask-SQLAlchemy
+flask-script
+flask-migrate
+flask-wtf
+flask-login
+flask-uploads
+Flask-Mail
+flask-moment

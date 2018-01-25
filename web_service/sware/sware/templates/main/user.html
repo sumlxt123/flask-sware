@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>
+            {{ user.username }}
+        </h1>
+
+        <!--name 和 location 字段在同一个<P> 元素中渲染。至少定义了这两个字段中的一个时<p>元素才会创建-->
+        {% if user.name or user.location %}
+        <p>
+            <!--用户姓名-->
+            {% if user.name %}
+                {{ user.name }}
+            {% endif %}
+
+            <!--用户的 location 渲染指向百度首页-->
+            {% if user.location %}
+                From <a href="https://baidu.com">
+                    {{ user.location }}
+                </a>
+            {% endif %}
+        </p>
+        {% endif %}
+
+
+        <!--登录用户是管理员就显示用户的电子邮件地址，并且渲染成 mailto 连接-->
+        {% if current_user.is_adminstrator() %}
+        <p>
+            <a href="mailto:{{ user.emal }}">
+                {{ user.email }}
+            </a>
+        </p>
+        {% endif  %}
+
+        {% if user.about_me %}
+        <p>
+            {{ user.about_me }}
+        </p>
+        {% endif %}
+
+        <!--moment是轻量级 JavaScript 日期处理类库-->
+        <p>
+            Member since {{ moment(user.member_since).format('L') }}
+            Last seen {{ moment(user.last_seen).fromNow() }}
+        </p>
+
+        <p> new time: {{ moment().format('YYYY-MM-DD, hh:mm:ss') }} </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+<h1>Dear {{ user.username }},</h1>
+
+<p>Welcome to Sware !</p>
+
+<p>To confirm your account please click on the following link:
+<br>
+{{ url_for('auth.confirm', token=token, _external=True) }}
+<br>
+Sincerely,
+</p>
+
+<p>
+The Sware Team
+<br>
+Note: replies to this email address are not monitored.
+</p>

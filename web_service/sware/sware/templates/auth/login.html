@@ -1,0 +1,51 @@
+<!--引入自定义的基础模板-->
+{% extends "base.html" %}
+
+<!--引入表单模板-->
+<!--{% import "bootstrap/wtf.html" as wtf %}-->
+
+<!--引入自定义css-->
+{% block styles%}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet">
+{% endblock %}
+
+<body>
+    <!--主体内容-->
+    {% block content %}
+    <div class="container">
+        <!--加入 Flash 消息 -->
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        <!--标题1-->
+        <h1>Login</h1>
+
+        <!--引用表单-->
+        <div>
+            <form action="/login" method="post">
+                {{ wtf.quick_form(form) }}
+            </form>
+        </div>
+
+        <!--空行-->
+        <br>
+
+        <!--用于提示注册页面-->
+        <p>
+            New user?
+            <a href="{{ url_for('auth.register') }}">
+                Click here to register
+            </a>
+        </p>
+
+    </div>
+    {% endblock %}
+
+</body>
+
+

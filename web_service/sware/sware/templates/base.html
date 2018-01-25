@@ -1,0 +1,97 @@
+<!--引入bootstrap 的基础配置-->
+{% extends "bootstrap/base.html" %}
+
+<!--引入表单模板-->
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+<!--设置标签页信息-->
+{% block title %}
+{{ super() }}
+Sware
+{% endblock %}
+
+<!-- 导入静态资源库 -->
+<!--配置标签页图片-->
+{% block head %}
+    {{ super() }}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon.ico') }}" type="image/x=icon">
+    <link rel="icon" href="{{ url_for('static', filename='ico/favicon.ico') }}" type="image/x=icon">
+
+    <!--导入自定义 css js 等-->
+    {% block styles %}
+    {{ super() }}
+    {% endblock %}
+
+    <!--在模板中引入 JavaScript 的时间处理模块-->
+    {{ moment.include_jquery() }}
+    {{ moment.include_moment() }}
+    <!--使用中文设置-->
+    {{ moment.lang("zh-CN") }}
+
+
+{% endblock %}
+
+
+
+<!--配置导航栏-->
+{% block navbar %}
+{{ super() }}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle"data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--项目名-->
+            <a class="navbar-brand" href="{{ url_for('main.index' )}}">Sware</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <!--在目录栏左侧显示的目录-->
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+
+            </ul>
+            <!--在目录右侧显示-->
+            <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+
+
+                <!--判断条件中的变量 current_user 由flask-Login 定义，并且在视图函数和模板中自动调用-->
+                {% if current_user.is_authenticated %}
+                    <!--下拉框设置-->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            User <b class="caret"></b>
+                        </a>
+                        <!--子目录-->
+                        <ul class="dropdown-menu">
+                            <li><a href="/">Change Password</a></li>
+                            <li><a href="/">Change Email</a></li>
+                            <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                            <li><a href="{{ url_for('auth.uploadfile') }}">Upload File</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!--主体内容-->
+{% block content %}
+{{ super() }}
+<div class="container">
+    <div class="page-header">
+        <h1>Welcome Base</h1>
+    </div>
+</div>
+{% endblock %}
+
+
